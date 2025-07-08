@@ -3,12 +3,21 @@
         <div class="mobile-menu">
             <ol>
                 <div v-for="item in menu">
-                    <li @click="handleClick(item.path)" :class="activeClass(item.path)">
+                    <li v-if="!item.submenu" @click="handleClick(item.path)" :class="activeClass(item.path)">
                         {{ item.title }}
                     </li>
-                    <!-- <li @click="item.isActive = !item.isActive">
+                    <li v-if="item.submenu" @click="setActiveItem(item)" :class="{ 'active': item.isActive }">
                         {{ item.title }}
-                    </li> -->
+                        <el-icon class="arrow" :class="{ 'is-active': item.isActive }">
+                            <ElIconArrowDown />
+                        </el-icon>
+                        <ul class="submenu" :class="{ 'is-open': item.isActive }">
+                            <li v-for="subItem in item.submenu" :key="subItem.path">
+                                <nuxt-link class="sub-menu-item" :to="subItem.path" @click="handleClick(subItem.path)"
+                                    :class="activeClass(subItem.path)">{{ subItem.title }}</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
                 </div>
             </ol>
         </div>
@@ -35,6 +44,11 @@ const menu = reactive([
     { title: '旅遊資訊', path: '/travel',isActive: false },
     { title: '贊助廠商', path: '/sponsor-list',isActive: false },
     { title: '吉祥物專區', path: '/mascot',isActive: false },
+    { title: 'Gallery', path: '/gallery', isActive: false, submenu: [
+        { title: '2023 Gallery', path: '/gallery/2023' },
+        { title: '2024 Gallery', path: '/gallery/2024' },
+        { title: '2025 Gallery', path: '/gallery/2025' },
+    ]}
 
 ])
 
@@ -142,24 +156,28 @@ const logout = async () => {
         }
 
         .submenu {
-            overflow: hidden;
-            max-height: 0px;
-            transition: 0.5s;
-            font-size: 16px;
-
-            a {
-                font-size: 1.2rem;
-                font-weight: bold;
-                display: block;
-                color: $main-content-color;
-                padding: 0.5rem 0;
+            padding-left: 1rem;
+            li {
+                list-style: none;
             }
+            // overflow: hidden;
+            // max-height: 0px;
+            // transition: 0.5s;
+            // font-size: 16px;
+
+            // a {
+            //     font-size: 1.2rem;
+            //     font-weight: bold;
+            //     display: block;
+            //     color: $main-content-color;
+            //     padding: 0.5rem 0;
+            // }
 
             &.is-open {
-                overflow: auto !important;
-                max-height: none !important;
-                margin-left: 15vw;
-                font-size: 16px;
+                // overflow: auto !important;
+                // max-height: none !important;
+                // margin-left: 15vw;
+                // font-size: 16px;
             }
         }
     }
