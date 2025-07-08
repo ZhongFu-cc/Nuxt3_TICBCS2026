@@ -37,30 +37,64 @@
                 <nuxt-link class="menu-item" to="/transportation" @click="setActiveItem('transportation')"
                     :class="activeClass('transportation')">交通資訊</nuxt-link>
 
-                    
-                    <div class="item-box">
+
+                <div class="item-box">
                     <nuxt-link class="menu-item" to="/travel" @click="setActiveItem('travel')"
                         :class="activeClass('travel')">旅遊資訊</nuxt-link>
-                        <nuxt-link class="menu-item" to="/sponsor-list" @click="setActiveItem('sponsorList')"
+                    <nuxt-link class="menu-item" to="/sponsor-list" @click="setActiveItem('sponsorList')"
                         :class="activeClass('sponsorList')">贊助廠商</nuxt-link>
-                        <nuxt-link class="menu-item" to="/mascot" @click="setActiveItem('mascot')"
+                    <nuxt-link class="menu-item" to="/mascot" @click="setActiveItem('mascot')"
                         :class="activeClass('mascot')">吉祥物專區</nuxt-link>
+                    <div class="gallery-box menu-item" @click="toggleGallerySubMenu">
+                        Gallery
+                        <el-icon>
+                            <ElIconArrowDown />
+                        </el-icon>
+                        <div class="gallery-sub-menu" v-if="gallerySubMenuIsOpen">
+                            <nuxt-link class="sub-menu-item" to="/gallery/2023" @click="setActiveItem('gallery')"
+                                :class="activeClass('gallery')">Gallery 2023</nuxt-link>
+                            <nuxt-link class="sub-menu-item" to="/gallery/2024" @click="setActiveItem('gallery2024')"
+                                :class="activeClass('gallery2024')">Gallery 2024</nuxt-link>
+                            <nuxt-link class="sub-menu-item" to="/gallery/2025" @click="setActiveItem('gallery2025')"
+                                :class="activeClass('gallery2025')">Gallery 2025</nuxt-link>
+                        </div>
                         <!-- <nuxt-link class="menu-item" to="/gallery" @click="setActiveItem('gallery')"
-                        :class="activeClass('gallery')">Gallery(2023
-                        TICBCS)</nuxt-link> -->
+                            :class="activeClass('gallery')">Gallery</nuxt-link> -->
                     </div>
-                    
-                    <div class="sub-menu-box">
-                        <div class="sub-menu-title" @click="toggleMenu">查看更多<el-icon>
+
+                </div>
+
+                <div class="sub-menu-box">
+                    <div class="sub-menu-title" @click="toggleMenu">查看更多<el-icon>
                             <ElIconArrowDown />
                         </el-icon></div>
-                        <div class="sub-menu-item-box" v-if="isOpen">
+                    <div class="sub-menu-item-box" v-if="isOpen">
                         <nuxt-link class="sub-menu-item" to="/travel" @click="setActiveItem('travel')"
                             :class="activeClass('travel')">旅遊資訊</nuxt-link>
                         <nuxt-link class="sub-menu-item" to="/sponsor-list" @click="setActiveItem('sponsorList')"
                             :class="activeClass('sponsorList')">贊助廠商</nuxt-link>
                         <nuxt-link class="sub-menu-item" to="/mascot" @click="setActiveItem('mascot')"
                             :class="activeClass('mascot')">吉祥物專區</nuxt-link>
+
+                        <div class="gallery-box sub-menu-item" @click="toggleGallerySubMenu"
+                            :class="activeClass('gallery')">
+                            Gallery
+                            <el-icon>
+                                <ElIconArrowDown />
+                            </el-icon>
+                            <div class="gallery-sub-menu" v-if="gallerySubMenuIsOpen">
+                                <nuxt-link class="sub-menu-item" to="/gallery/2023" @click="setActiveItem('gallery')"
+                                    :class="activeClass('gallery')">Gallery 2023</nuxt-link>
+                                <nuxt-link class="sub-menu-item" to="/gallery/2024"
+                                    @click="setActiveItem('gallery2024')" :class="activeClass('gallery2024')">Gallery
+                                    2024</nuxt-link>
+                                <nuxt-link class="sub-menu-item" to="/gallery/2025"
+                                    @click="setActiveItem('gallery2025')" :class="activeClass('gallery2025')">Gallery
+                                    2025</nuxt-link>
+                            </div>
+                            <!-- <nuxt-link class="menu-item" to="/gallery" @click="setActiveItem('gallery')"
+                            :class="activeClass('gallery')">Gallery</nuxt-link> -->
+                        </div>
                     </div>
                 </div>
 
@@ -89,6 +123,11 @@ const toggleMenu = () => {
     isOpen.value = !isOpen.value
 }
 
+const gallerySubMenuIsOpen = ref(false)
+const toggleGallerySubMenu = () => {
+    gallerySubMenuIsOpen.value = !gallerySubMenuIsOpen.value
+}
+
 const activeItem = ref('')
 const setActiveItem = (item: string) => {
     activeItem.value = item
@@ -97,7 +136,7 @@ const setActiveItem = (item: string) => {
 }
 
 const activeClass = (item: string) => {
-    
+
     return activeItem.value === item ? 'active' : ''
 }
 
@@ -163,6 +202,7 @@ onMounted(() => {
             padding-left: 2rem;
             justify-content: flex-start;
         }
+
         // Logo區域
         .logo-container {
             width: 30%;
@@ -318,8 +358,67 @@ onMounted(() => {
                 }
             }
 
+            .gallery-box {
+                color: #59413C;
+                text-decoration: none;
+                position: relative;
+
+                @media screen and (max-width: 800px) {
+                    color: white;
+                    display: flex;
+                    font-size: 1.2rem;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
 
 
+                .gallery-sub-menu {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    gap: 1rem;
+                    top: 3rem;
+                    right: -0.5rem;
+                    background-color: black;
+                    width: 10rem;
+                    padding: 1rem 1.5rem;
+                    border-radius: 0.5rem;
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                    z-index: 1000;
+
+                    @media screen and (max-width: 800px) {
+                        width: 8rem;
+                        left: -12rem;
+                        top: 0;
+
+
+                        &:hover {
+                            cursor: pointer;
+                            color: white;
+                            background-color: black !important;
+                        }
+
+                    }
+
+
+                    .active {
+                        color: #FF5529;
+                    }
+
+                    .sub-menu-item {
+                        color: white;
+
+                        &:active {
+                            color: #FF5529;
+                        }
+
+                        &:hover {
+                            color: #FF5529;
+                        }
+                    }
+                }
+            }
         }
     }
 

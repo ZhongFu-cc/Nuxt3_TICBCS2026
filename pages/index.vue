@@ -22,25 +22,25 @@
                 <div class="carousel-box">
                     <el-carousel ref="carousel" :interval="4000" type="card" arrow="never">
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img0.jpg" alt="">
+                            <img src="@/assets/img/carousel/img0.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img1.jpg" alt="">
+                            <img src="@/assets/img/carousel/img1.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img2.jpg" alt="">
+                            <img src="@/assets/img/carousel/img2.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img3.jpg" alt="">
+                            <img src="@/assets/img/carousel/img3.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img4.jpg" alt="">
+                            <img src="@/assets/img/carousel/img4.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img5.jpg" alt="">
+                            <img src="@/assets/img/carousel/img5.jpg" alt="">
                         </el-carousel-item>
                         <el-carousel-item>
-                            <img src="../assets/img/carousel/img6.jpg" alt="">
+                            <img src="@/assets/img/carousel/img6.jpg" alt="">
                         </el-carousel-item>
                     </el-carousel>
                 </div>
