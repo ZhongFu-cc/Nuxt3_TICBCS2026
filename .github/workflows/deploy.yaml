@@ -45,7 +45,7 @@ jobs:
 
           path: ".output"
           # 設置 remote path
-          remote_path: "/home/user/front-end/.output"
+          remote_path: "/home/user/front-end"
           debug: true
           
           switches: "-avz"
