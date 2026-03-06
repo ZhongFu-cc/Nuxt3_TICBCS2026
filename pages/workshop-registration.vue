@@ -60,7 +60,7 @@
                     </el-form-item>
 
                     <el-form-item class="submit-btn">
-                        <el-button type="primary" @click="submit(form)">前往付款</el-button>
+                        <el-button :disabled="isDisabled" type="primary" @click="submit(form)">前往付款</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -164,12 +164,13 @@ const formRules = reactive<FormRules>({
 /**-------------------------------提交表單----------------------------- */
 const ecPayForm = ref<any>();
 const formRef = ref<any>()
+const isDisabled = ref(false);
 const submit = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
 
     formEl.validate(async (valid) => {
         if (valid) {
-            console.log('submit', formData)
+            isDisabled.value = true
             try {
                 let res = await CSRrequest.post('/temp-workspace', {
                     body: formData
@@ -193,6 +194,7 @@ const submit = async (formEl: FormInstance | undefined) => {
                         // console.log(formItem)
                         formItem.submit()
                     }
+                    isDisabled.value = false
 
                     // router.push('/') // 可根據需要調整跳轉頁面
                 }
@@ -201,6 +203,7 @@ const submit = async (formEl: FormInstance | undefined) => {
                 ElMessage.error('註冊失敗，請稍後再試')
                 getCaptcha()
                 formData.verificationCode = ''
+                isDisabled.value = false
             }
         } else {
             console.log('表單驗證失敗')
