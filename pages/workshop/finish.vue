@@ -38,15 +38,6 @@ import Banner from '@/components/layout/Banner.vue';
 // 可選：如果想從上一頁帶一些狀態過來顯示客製化訊息
 // const route = useRoute()
 // const message = route.query.message as string || '我們已收到您的表單！'
-const router = useRouter()
-const returnEcPay = async () => {
-    let res = await CSRrequest.post(`/temp-workspace/payment`)
-}
-
-onMounted(() => {
-    returnEcPay()
-})
-
 </script>
 
 <style scoped lang="scss">
