@@ -45,7 +45,7 @@ jobs:
             rm -fr .output
 
       - name: Sync Dis Files to AlmaLinux VM
-          if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         uses: burnett01/rsync-deployments@v8
         with:
           remote_host: ${{ secrets.GCP_VM_HOST }}
