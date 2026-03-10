@@ -2,6 +2,9 @@ on:
   push:
     branches: 
       - '**'
+  pull_request:
+    branches: 
+      - 'dev'
 
 # 工作流程
 jobs:
@@ -27,7 +30,7 @@ jobs:
           export NUXT_PUBLIC_DOMAIN='${{ secrets.NUXT_PUBLIC_DOMAIN }}'
           envsubst < .env.production > .env
 
-          npm install
+          npm ci
           npm run build
 
       - name: Stop pm2
