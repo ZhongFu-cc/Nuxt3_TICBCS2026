@@ -40,23 +40,41 @@
                                 <el-input v-model="formData.chineseName"></el-input>
                             </el-form-item>
 
+                            <div class="member-name">
+                                <el-form-item class="first-name" required :label="formLabel.firstName">
+                                    <el-input v-model="formData.firstName"
+                                        :placeholder="formLabel.firstName"></el-input>
+                                </el-form-item>
+                                <el-form-item class="last-name" required :label="formLabel.lastName">
+                                    <el-input v-model="formData.lastName" :placeholder="formLabel.lastName"></el-input>
+                                </el-form-item>
+
+                            </div>
+
                             <el-form-item class="email required" :label="formLabel.email" prop="email">
                                 <el-input v-model="formData.email" :placeholder="formLabel.email2"
+                                    :prefixIcon="Message"></el-input>
+                            </el-form-item>
+
+                            <el-form-item class="email required" :label="formLabel.email2" required prop="confirmEmail">
+                                <el-input v-model="formData.confirmEmail" :placeholder="formLabel.email2"
                                     :prefixIcon="Message"></el-input>
                             </el-form-item>
 
                             <el-form-item class="required" :label="formLabel.affiliation" prop="affiliation">
                                 <el-input v-model="formData.affiliation"></el-input>
                             </el-form-item>
+
+
+                        </div>
+                        <div class="right-section">
                             <el-form-item class="required" :label="formLabel.jobTitle" prop="jobTitle">
                                 <el-input v-model="formData.jobTitle"></el-input>
                             </el-form-item>
 
-                        </div>
-                        <div class="right-section">
-                            <el-form-item :label="formLabel.idCard" prop="idCard">
+                            <!-- <el-form-item :label="formLabel.idCard" prop="idCard">
                                 <el-input v-model="formData.idCard"></el-input>
-                            </el-form-item>
+                            </el-form-item> -->
 
 
                             <div class="member-phone required">
@@ -236,7 +254,7 @@ const formLabel = reactive({
     firstName: 'First Name',
     lastName: 'Last Name',
     email: 'ID: Primary E-mail',
-    email2: 'E-mail',
+    email2: 'Confirm E-mail',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     chineseName: 'Chinese Name',
@@ -260,6 +278,8 @@ const formLabel = reactive({
     chineseNameValidate: 'Please input your Chinese name',
     emailValidate: 'Please input your email',
     emailValidate2: 'Please input correct email',
+    confirmEmail: 'Please input your email again',
+    confirmEmailValidate: 'The two email do not match',
     passwordValidate: 'Please input your password',
     confirmPasswordValidate: 'Please input your password again',
     confirmPasswordValidate2: 'The two passwords do not match',
@@ -284,7 +304,7 @@ watch(() => attendeeType, (value) => {
         formLabel.lastName = '英文姓氏'
         formLabel.chineseName = '中文姓名'
         formLabel.email = '電子信箱'
-        formLabel.email2 = '電子信箱'
+        formLabel.email2 = '電子信箱確認'
         formLabel.password = '密碼'
         formLabel.confirmPassword = '確認密碼'
         formLabel.affiliation = '所屬機構'
@@ -306,6 +326,8 @@ watch(() => attendeeType, (value) => {
         formLabel.chineseNameValidate = '請輸入中文姓名'
         formLabel.emailValidate = '請輸入電子信箱'
         formLabel.emailValidate2 = '請輸入正確格式的電子信箱'
+        formLabel.confirmEmail = '請再次輸入電子信箱'
+        formLabel.confirmEmailValidate = '兩次電子信箱不相符'
         formLabel.passwordValidate = '請輸入密碼'
         formLabel.confirmPasswordValidate = '請再次輸入密碼'
         formLabel.confirmPasswordValidate2 = '兩次密碼不相符'
@@ -334,6 +356,7 @@ interface formData {
     lastName: string,
     chineseName: string,
     email: string,
+    confirmEmail: string,
     password: string,
     confirmPassword: string,
     affiliation: string,
@@ -361,15 +384,16 @@ const formData = reactive<formData>({
     lastName: '',
     chineseName: '',
     email: '',
+    confirmEmail: '',
     password: '',
     confirmPassword: '',
     affiliation: '',
     jobTitle: '',
     idCard: '',
-    country: '',
+    country: 'Taiwan',
     remitAccountLast5: '',
     phone: '',
-    countryCode: '',
+    countryCode: '886',
     phoneNum: '',
     receipt: '',
     category: 1,
@@ -411,6 +435,16 @@ const validCategoryExtra = (rule: any, value: string, callback: any) => {
     }
 }
 
+const checkEmail = (rule: any, value: string, callback: any) => {
+    console.log('checkEmail', value, formData.email)
+    if (!value) {
+        callback(new Error(formLabel.confirmEmail))
+    } else if (value !== formData.email) {
+        callback(new Error(formLabel.confirmEmailValidate))
+    } else {
+        callback()
+    }
+}
 
 
 const formRules = reactive<FormRules>({
@@ -418,6 +452,7 @@ const formRules = reactive<FormRules>({
     firstName: [{ required: true, message: formLabel.firstNameValidate, trigger: 'blur' }],
     lastName: [{ required: true, message: formLabel.lastNameValidate, trigger: 'blur' }],
     email: [{ required: true, message: formLabel.emailValidate, trigger: 'blur' }, { type: 'email', message: formLabel.emailValidate2, trigger: 'blur' }],
+    confirmEmail: [{ validator: checkEmail, trigger: 'blur' }],
     password: [{ required: true, message: formLabel.passwordValidate, trigger: 'blur' }],
     chineseName: [{ required: true, message: formLabel.chineseNameValidate, trigger: 'blur' }],
     confirmPassword: [{ validator: vaildConfirmPassword, trigger: 'blur' }],
