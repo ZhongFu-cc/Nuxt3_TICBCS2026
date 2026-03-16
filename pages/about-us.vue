@@ -55,6 +55,13 @@
             </div>
 
             <h1 class="title">協辦單位</h1>
+            <div class="image-box">
+                <div class="logo-box">
+                    <img src="../assets/img/Organizer/NCIS 1.png" alt="">
+                    <el-text class="logo-name">National University Cancer Institute Singapore</el-text>
+                    <!-- <el-text class="logo-name">中國醫藥大學附設醫院</el-text> -->
+                </div>
+            </div>
 
         </div>
     </section>

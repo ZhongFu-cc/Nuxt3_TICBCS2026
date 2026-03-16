@@ -176,11 +176,11 @@ const submit = async (formEl: FormInstance | undefined) => {
                     body: formData
                 })
 
-                console.log(res)
                 if (res.code === 500) {
                     getCaptcha()
                     formData.verificationCode = ''
                     ElMessage.error(res.msg)
+                    isDisabled.value = false;
                     return
                 }
 
