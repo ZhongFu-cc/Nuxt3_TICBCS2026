@@ -172,6 +172,7 @@ const emits = defineEmits(['openMenu']);
 
 /**================================================================ */
 onMounted(() => {
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
 })
 
@@ -208,23 +209,19 @@ onMounted(() => {
         // Logo區域
         .logo-container {
             width: 30%;
-            height: 100%;
 
             .logo-link {
                 cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
 
                 .logo-image-box {
-                    width: 40%;
-                    height: 100%;
+                    width: 30%;
 
                     .logo {
                         width: 100%;
-                        height: 100%;
-                        object-fit: content;
+                        object-fit: contain;
                         object-position: center center;
                     }
 

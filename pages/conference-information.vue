@@ -19,15 +19,15 @@
             <div class="agenda-info">
                 <h1 class="title">Agenda</h1>
                 <div class="agenda-info-box">
-                    <!-- <img src="../assets/img/2024-TICBCS-agenda.png" alt=""> -->
-                    <!-- <div class="download"> -->
-                    <!-- <a href="/files/TICBCS-Agenda.pdf" target="_blank" download class="agenda-download">
-                        TICBCS 議程下載
-                    </a>
-                    <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
-                        TICBCS 手冊下載
-                    </a> -->
-                    <!-- </div> -->
+                    <img src="/img/agenda.jpg" alt="">
+                    <div class="download">
+                        <a href="/files/agenda.pdf" target="_blank" download class="agenda-download">
+                            TICBCS 議程下載
+                        </a>
+                        <!-- <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
+                            TICBCS 手冊下載
+                        </a> -->
+                    </div>
                 </div>
             </div>
 
@@ -50,6 +50,12 @@
 <script setup lang="ts">
 import Title from '@/components/layout/Title.vue';
 import Banner from '@/components/layout/Banner.vue';
+
+useSeoMeta({
+    title: '會議資訊',
+    description: '了解即將舉行的研討會的所有詳細資訊，包括日期、地點、議程等。保持資訊更新，並妥善規劃您的參與。',
+    keywords: 'conference information, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 會議資訊, 台中國際會展中心, 台中國際乳癌研討會 , 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會, 會議時間, 會議地點, 議程',
+});
 
 </script>
 <style lang="scss" scoped>
@@ -94,6 +100,7 @@ import Banner from '@/components/layout/Banner.vue';
         justify-content: center;
 
         .meeting-info-box {
+            color: $main-text-color;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -112,6 +119,7 @@ import Banner from '@/components/layout/Banner.vue';
                 font-weight: bold;
                 font-size: 1.5rem;
                 margin-right: 1rem;
+                color: $main-text-color;
 
                 @media screen and (max-width: 768px) {
                     font-size: 1.2rem;
@@ -134,12 +142,11 @@ import Banner from '@/components/layout/Banner.vue';
         }
 
         .agenda-download {
-            background-color: #D27DA6;
+            background: linear-gradient(180deg, #ee9ab9 0%, #8f8dc2 100%);
             display: block;
             margin: 2rem auto 0 auto;
             padding: 0.5rem 0;
             color: white;
-            border: 1px solid black;
             border-radius: 0.3rem;
             text-align: center;
             width: 70%;
@@ -179,6 +186,7 @@ import Banner from '@/components/layout/Banner.vue';
     }
 
     .location {
+
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -191,6 +199,7 @@ import Banner from '@/components/layout/Banner.vue';
         margin: 0 auto;
 
         .title {
+            color: $main-text-color;
             font-weight: bold;
             font-size: 1.5rem;
             margin-right: 1rem;
@@ -203,6 +212,7 @@ import Banner from '@/components/layout/Banner.vue';
         .location-info {
             font-size: 1.5rem;
             font-weight: normal;
+            color: $main-text-color;
 
             @media screen and (max-width: 768px) {
                 font-size: 1.2rem;

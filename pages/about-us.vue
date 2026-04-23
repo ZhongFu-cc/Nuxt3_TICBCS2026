@@ -5,7 +5,7 @@
             <h1 class="title">Welcome Message</h1>
             <div class="welcome-box">
                 <div class="image-box">
-                    <img src="../assets/img/president3.jpg" alt="">
+                    <img src="@/assets/img/president3.jpg" alt="">
                 </div>
                 <div class="welcome-content">
                     <p>各位嘉賓、學界專家及同仁&nbsp;:</p>
@@ -22,17 +22,17 @@
 
             <div class="image-box">
                 <div class="logo-box">
-                    <img src="../assets/img/Organizer/LOGO-03_1.png" alt="">
+                    <img src="@/assets/img/Organizer/LOGO-03_1.png" alt="">
                     <el-text class="logo-name">China Medical University Hospital</el-text>
                     <el-text class="logo-name">中國醫藥大學附設醫院</el-text>
                 </div>
                 <div class="logo-box">
-                    <img src="../assets/img/Organizer/LOGO-04_1.png" alt="">
+                    <img src="@/assets/img/Organizer/LOGO-04_1.png" alt="">
                     <el-text class="logo-name">China Medical University</el-text>
                     <el-text class="logo-name">中國醫藥大學</el-text>
                 </div>
                 <div class="logo-box">
-                    <img src="../assets/img/Organizer/LOGO-05_1.png" alt="">
+                    <img src="@/assets/img/Organizer/LOGO-05_1.png" alt="">
                     <el-text class="logo-name">The Breast Cancer Education and Prevention Association</el-text>
                     <el-text class="logo-name">中華民國乳癌教育暨防治學會</el-text>
                 </div>
@@ -43,12 +43,12 @@
 
             <div class="image-box">
                 <div class="logo-box2">
-                    <img src="../assets/img/Organizer/LOGO-06_1.png" alt="">
+                    <img src="@/assets/img/Organizer/LOGO-06_1.png" alt="">
                     <el-text class="logo-name">Taiwan Breast Cancer Society</el-text>
                     <el-text class="logo-name">台灣乳房醫學會</el-text>
                 </div>
                 <div class="logo-box2">
-                    <img src="../assets/img/Organizer/LOGO-07_1.png" alt="">
+                    <img src="@/assets/img/Organizer/LOGO-07_1.png" alt="">
                     <el-text class="logo-name">Taiwan Surgical Association</el-text>
                     <el-text class="logo-name">中華民國外科醫學會</el-text>
                 </div>
@@ -57,7 +57,7 @@
             <h1 class="title">協辦單位</h1>
             <div class="image-box">
                 <div class="logo-box">
-                    <img src="../assets/img/Organizer/NCIS 1.png" alt="">
+                    <img src="@/assets/img/Organizer/NCIS 1.png" alt="">
                     <el-text class="logo-name">National University Cancer Institute Singapore</el-text>
                     <!-- <el-text class="logo-name">中國醫藥大學附設醫院</el-text> -->
                 </div>
@@ -68,6 +68,13 @@
 </template>
 <script lang="ts" setup>
 import Banner from '@/components/layout/Banner.vue';
+
+useSeoMeta({
+    title: '關於我們',
+    description: '了解更多關於我們的組織、使命和價值觀。探索我們如何在世界上產生影響。',
+    keywords: 'about us, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 關於我們, 台中國際乳癌研討會 , 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會',
+});
+
 </script>
 <style lang="scss" scoped>
 .about-us-section {
@@ -111,7 +118,7 @@ import Banner from '@/components/layout/Banner.vue';
         }
 
         .welcome-content {
-            color: $main-color;
+            color: $main-text-color;
             flex: 1;
             padding: 0 20px;
             font-size: 1.5rem;
@@ -153,7 +160,7 @@ import Banner from '@/components/layout/Banner.vue';
             }
 
             .logo-name {
-                color: $main-color;
+                color: $main-text-color;
                 font-size: 1rem;
                 text-align: center;
             }
@@ -174,7 +181,7 @@ import Banner from '@/components/layout/Banner.vue';
             }
 
             .logo-name {
-                color: $main-color;
+                color: $main-text-color;
                 font-size: 1.2rem;
                 text-align: center;
             }

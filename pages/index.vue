@@ -5,7 +5,7 @@
         <div class="main-section">
             <div class="content">
                 <div class="content-image-box">
-                    <img src="../assets/img/bubble_tea_hello.png" alt="">
+                    <img src="@/assets/img/bubble_tea_hello.png" alt="">
                 </div>
                 <div class="content-message-box">
                     <p><B>Research and Real-World Issue of Breast Cancer</B></p>
@@ -56,6 +56,12 @@
 import Banner from '@/components/layout/Banner.vue';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import Title from '~/components/layout/Title.vue';
+
+useSeoMeta({
+    title: 'TICBCS 2026 - Taichung International Breast Comprehensive Breast Cancer Symposium',
+    description: 'TICBCS 2026 is an international symposium dedicated to comprehensive breast cancer research and treatment. Join us in Taichung for cutting-edge insights, expert discussions, and collaborative opportunities in the field of breast cancer.',
+    keywords: 'home, breast cancer, conference, TICBCS2026, TICBCS, ticbcs2026, ticbcs, 台中國際會展中心, 台中國際乳癌研討會, 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會',
+})
 
 const carousel = ref();
 
@@ -115,7 +121,7 @@ onMounted(() => {
             flex-direction: column;
             justify-content: center;
             gap: 3rem;
-            color: $main-color;
+            color: $main-text-color;
 
             // @media screen and (max-width: 1920px) {
             //     font-size: 1.2rem;

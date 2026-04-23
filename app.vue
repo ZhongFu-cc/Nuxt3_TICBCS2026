@@ -12,7 +12,7 @@
     </main>
 
     <!-- 共用的Footer -->
-     <Bottom/>
+    <Bottom />
     <Footer ref="footerRef"></Footer>
   </div>
 
@@ -26,6 +26,9 @@ import Bottom from '@/components/layout/Bottom.vue';
 import Footer from '@/components/layout/Footer.vue';
 import MobileMenu from './components/layout/MobileMenu.vue';
 import { ref } from 'vue';
+
+const { locale, setLocale, t } = useI18n();
+
 
 //這邊注意只是獲取組件而已
 const footerRef = ref()
@@ -67,6 +70,7 @@ const handleBannerHeight = () => {
 
 
 onMounted(() => {
+  setLocale('zh-TW')
   // handleBannerHeight()
   // // 監聽滾動事件
   // window.addEventListener('scroll', handleScroll)

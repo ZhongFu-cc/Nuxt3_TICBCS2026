@@ -7,8 +7,8 @@
             </div>
             <div class="travel-info-box">
                 <h1 class="title"><span class="type" :class="item.type === '鄰近景點' ? '' : 'first'">{{ item.type
-                }}</span>{{ item.title }}</h1>
-                <p v-html="item.content"></p>
+                        }}</span>{{ item.title }}</h1>
+                <p class="info" v-html="item.content"></p>
                 <a class="link" :href="item.link" target="_blank">See More</a>
             </div>
 
@@ -25,20 +25,26 @@ import img04 from '@/assets/img/travel/travel04.jpg';
 import img05 from '@/assets/img/travel/travel05.jpg';
 import img06 from '@/assets/img/travel/travel06.jpg';
 
+useSeoMeta({
+    title: '旅遊資訊 | 台中國際乳癌研討會 2026',
+    description: '探索台中旅遊資訊，發現台中國際乳癌研討會 2026 附近的熱門景點和活動。從文化地標到自然美景，讓您的研討會之旅更加豐富多彩。',
+    keywords: 'travel information, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 旅遊資訊, 台中國際乳癌研討會, 台中旅遊, 台中景點, 台中活動, 文化地標, 自然美景, 台中國際會展中心',
+});
+
 const travelItemList = [
-    {
-        type: '首選推薦',
-        title: '台中國際會展中心',
-        content: `臺中國際會展中心位於水湳智慧城北側入口門戶，發展目標為指標性及帶領經貿產業最重要之國際會展中心，<B>以「Tree Gate」作為設計理念與規劃整體建築設計</B>，會展中心位於植被成林的公園中，設施的整體印象有如<B>“大樹之門”</B>。中央的開放空間設計成充滿從樹隙間滲透出陽光樹影斑駁效果的廣場，開放式的市民廣場，形成連通南北公園的設施與市民休憩的空間。​`,
-        imageUrl: img01,
-        link: 'http://www.shuinanicec.com.tw/'
-    },
     {
         type: '首選推薦',
         title: '台中綠美圖​',
         content: `綠美圖做為公園綠意與城市景觀延伸，是<B>全國第一座美術館與圖書館共構的建築</B>，為中臺灣文化藝術場館揭開璀璨新篇章。  臺中綠美圖整體建築設計包含<B>「公園中的圖書館、森林中的美術館」</B>、「將地面層抬高與公園連結，開放為市民場域」等6大主要特色。綠美圖未來不僅是全臺首座且量體最大之圖書館與美術館「雙館共構」新建築，更是集城市美學與藝術文化亮點的世界級建築新地標。​`,
         imageUrl: img02,
         link: 'https://www.library.taichung.gov.tw/public/content/index-1.asp?Parser=1,20,600,45'
+    },
+    {
+        type: '首選推薦',
+        title: '台中國際會展中心',
+        content: `臺中國際會展中心位於水湳智慧城北側入口門戶，發展目標為指標性及帶領經貿產業最重要之國際會展中心，<B>以「Tree Gate」作為設計理念與規劃整體建築設計</B>，會展中心位於植被成林的公園中，設施的整體印象有如<B>“大樹之門”</B>。中央的開放空間設計成充滿從樹隙間滲透出陽光樹影斑駁效果的廣場，開放式的市民廣場，形成連通南北公園的設施與市民休憩的空間。​`,
+        imageUrl: img01,
+        link: 'http://www.shuinanicec.com.tw/'
     },
     {
         type: '首選推薦',
@@ -140,6 +146,10 @@ const travelItemList = [
 
             .title {
                 font-size: 1.5rem;
+            }
+
+            .info {
+                color: $main-text-color;
             }
 
             .link {

@@ -23,8 +23,8 @@
 
 
             <div class="image-section">
-                <img src="../assets/img/bubble_tea_hello.png" alt="Bubble Tea" />
-                <img src="../assets/img/bubble_tea_lay.png" alt="Bubble Tea" />
+                <img src="@/assets/img/bubble_tea_hello.png" alt="Bubble Tea" />
+                <img src="@/assets/img/bubble_tea_lay.png" alt="Bubble Tea" />
 
             </div>
         </div>
@@ -32,6 +32,12 @@
 </template>
 <script lang="ts" setup>
 import Banner from '@/components/layout/Banner.vue';
+
+useSeoMeta({
+    title: '吉祥物專區 | TICBCS 2026',
+    description: 'TICBCS 2026 吉祥物專區，了解我們的可愛吉祥物，為乳癌防治宣傳增添趣味與活力！',
+    keywords: 'TICBCS 2026, 吉祥物專區, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 吉祥物, 乳癌防治, 宣傳, 活力, 珍奶',
+})
 </script>
 <style lang="scss" scoped>
 .common-section {
@@ -59,7 +65,7 @@ import Banner from '@/components/layout/Banner.vue';
         gap: 4rem;
         font-size: 1.5rem;
         line-height: 1.5rem;
-        color: $main-color;
+        color: $main-text-color;
 
         @media screen and (max-width: 768px) {
             font-size: 1.2rem;

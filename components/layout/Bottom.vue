@@ -1,10 +1,10 @@
 <template>
     <section class="main-section">
         <div class="left-box">
-            <img src="../../assets/img/left-bottom.png" alt="">
+            <img src="@/assets/img/left-bottom.jpg" alt="">
         </div>
         <div class="right-box">
-            <img src="../../assets/img/right-bottom.png" alt="">
+            <img src="@/assets/img/right-bottom.jpg" alt="">
         </div>
     </section>
 </template>
