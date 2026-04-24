@@ -21,7 +21,7 @@
                 <div class="agenda-info-box">
                     <NuxtImg v-for="agenda in agendas" :key="agenda.publishFileId" :src="envMinio + agenda.path" :alt="agenda.alt"
                         densities="x1 x2" width="200" class="gallery-image" loading="lazy" />
-                    <!-- <img src="/img/agenda.jpg" alt=""> -->s
+                    <!-- <img src="/img/agenda.jpg" alt=""> -->
                     <div class="download">
                         <a v-if="agendaPdf && agendaPdf.path" :href="envMinio + agendaPdf.path" target="_blank" download class="agenda-download">
                             TICBCS 議程下載
