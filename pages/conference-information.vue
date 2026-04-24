@@ -19,9 +19,11 @@
             <div class="agenda-info">
                 <h1 class="title">Agenda</h1>
                 <div class="agenda-info-box">
-                    <img src="/img/agenda.jpg" alt="">
+                    <NuxtImg v-for="agenda in agendas" :key="agenda.publishFileId" :src="envMinio + agenda.path" :alt="agenda.alt"
+                        densities="x1 x2" width="200" class="gallery-image" loading="lazy" />
+                    <!-- <img src="/img/agenda.jpg" alt=""> -->s
                     <div class="download">
-                        <a href="/files/agenda.pdf" target="_blank" download class="agenda-download">
+                        <a v-if="agendaPdf && agendaPdf.path" :href="envMinio + agendaPdf.path" target="_blank" download class="agenda-download">
                             TICBCS 議程下載
                         </a>
                         <!-- <a href="https://lihi2.com/StUJt" target="_blank" download class="agenda-download">
@@ -57,6 +59,37 @@ useSeoMeta({
     keywords: 'conference information, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 會議資訊, 台中國際會展中心, 台中國際乳癌研討會 , 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會, 會議時間, 會議地點, 議程',
 });
 
+const envMinio = useRuntimeConfig().public.minio
+console.log('envMinio', envMinio)
+
+
+const agendas = ref<any[]>([])
+const fetchAgendaFile = async () => {
+    try {
+        const res: any = await CSRrequest.get(`/publish-file/agenda`)
+        agendas.value = res.data
+    } catch (error) {
+        console.error('Error fetching agenda file:', error);
+    }
+}
+
+const agendaPdf = ref<any>(null)
+const fetchAgendaPdf = async () => {
+   try {
+        const res: any = await CSRrequest.get(`/publish-file/programBook`, {
+
+        })
+        agendaPdf.value = res.data[0]
+    } catch (error) {
+        console.error('Error fetching agenda file:', error);
+    }
+}
+
+
+onMounted(() => {
+    fetchAgendaFile();
+    fetchAgendaPdf();
+})
 </script>
 <style lang="scss" scoped>
 .common-section {
