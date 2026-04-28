@@ -2,6 +2,7 @@
     <section class="top-section">
         <div class="menu-container" :class="[{ 'menu-section-scroll': isScroll }, { 'is-active': isActive }]">
 
+            <!-- 漢堡選單 -->
             <div class="hamburger-icon">
                 <div class="container">
                     <div class="hamburger" :class="{ 'is-active': isActive }" id="hamburger-1" @click="openMenu">
@@ -12,133 +13,164 @@
                 </div>
             </div>
 
+            <!-- Logo 區塊 -->
             <div class="logo-container" v-if="!isActive">
-                <nuxt-link class="logo-link" to="/" @click="setActiveItem('')">
+                <nuxt-link class="logo-link" to="/" @click="pcModeActiveItemState.setActiveItem('')">
                     <div class="logo-image-box">
                         <img class="logo" src="/img/logo.png" alt="TICBCS Logo" />
                     </div>
                 </nuxt-link>
             </div>
 
+            <!-- 主選單區塊 -->
             <div class="menu-box">
-                <nuxt-link class="menu-item" to="/about-us" @click="setActiveItem('aboutUs')"
-                    :class="activeClass('aboutUs')">關於我們</nuxt-link>
-
-                <nuxt-link class="menu-item" to="/conference-information"
-                    @click="setActiveItem('conferenceInformation')"
-                    :class="activeClass('conferenceInformation')">會議資訊</nuxt-link>
-
-                <!-- <nuxt-link class="menu-item" to="/" @click="setActiveItem('invitedSpeaker')"
-                    :class="activeClass('invitedSpeaker')">受邀講者</nuxt-link> -->
-
-                <nuxt-link class="menu-item" to="/seminar-registration" @click="setActiveItem('seminarRegistration')"
-                    :class="activeClass('seminarRegistration')">註冊資訊</nuxt-link>
-
-                <nuxt-link class="menu-item" to="/transportation" @click="setActiveItem('transportation')"
-                    :class="activeClass('transportation')">交通資訊</nuxt-link>
-
+                <nuxt-link v-for="menu in primaryMenuItems" :key="menu.activeKey" class="menu-item" :to="menu.route"
+                    @click="pcModeActiveItemState.setActiveItem(menu.activeKey)"
+                    :class="pcModeActiveItemState.validActive(menu.activeKey)">{{ menu.name
+                    }}</nuxt-link>
 
                 <div class="item-box">
-                    <nuxt-link class="menu-item" to="/travel" @click="setActiveItem('travel')"
-                        :class="activeClass('travel')">旅遊資訊</nuxt-link>
-                    <nuxt-link class="menu-item" to="/sponsor-list" @click="setActiveItem('sponsorList')"
-                        :class="activeClass('sponsorList')">贊助廠商</nuxt-link>
-                    <nuxt-link class="menu-item" to="/mascot" @click="setActiveItem('mascot')"
-                        :class="activeClass('mascot')">吉祥物專區</nuxt-link>
-                    <div class="gallery-box menu-item" @click="toggleGallerySubMenu">
+                    <nuxt-link v-for="menu in secondaryMenuItems" :key="menu.activeKey" class="menu-item"
+                        :to="menu.route" @click="pcModeActiveItemState.setActiveItem(menu.activeKey)"
+                        :class="pcModeActiveItemState.validActive(menu.activeKey)">{{
+                            menu.name }}</nuxt-link>
+
+                    <div class="gallery-box menu-item" @click="galleryMenuState.toggleMenu">
                         Gallery
                         <el-icon>
                             <ElIconArrowDown />
                         </el-icon>
-                        <div class="gallery-sub-menu" v-if="gallerySubMenuIsOpen">
-                            <nuxt-link class="sub-menu-item" to="/gallery/2023" @click="setActiveItem('gallery')"
-                                :class="activeClass('gallery')">Gallery 2023</nuxt-link>
-                            <nuxt-link class="sub-menu-item" to="/gallery/2024" @click="setActiveItem('gallery2024')"
-                                :class="activeClass('gallery2024')">Gallery 2024</nuxt-link>
-                            <nuxt-link class="sub-menu-item" to="/gallery/2025" @click="setActiveItem('gallery2025')"
-                                :class="activeClass('gallery2025')">Gallery 2025</nuxt-link>
+                        <div class="gallery-sub-menu" v-if="galleryMenuState.isOpen">
+                            <nuxt-link v-for="subMenu in galleryMenuItem.subMenu" :key="subMenu.activeKey"
+                                class="sub-menu-item" :to="subMenu.route"
+                                @click="pcModeActiveItemState.setActiveItem(subMenu.activeKey)"
+                                :class="pcModeActiveItemState.validActive(subMenu.activeKey)">{{ subMenu.name
+                                }}</nuxt-link>
                         </div>
-                        <!-- <nuxt-link class="menu-item" to="/gallery" @click="setActiveItem('gallery')"
-                            :class="activeClass('gallery')">Gallery</nuxt-link> -->
                     </div>
-
                 </div>
 
+                <!-- 次選單區塊 -->
                 <div class="sub-menu-box">
-                    <div class="sub-menu-title" @click="toggleMenu">查看更多<el-icon>
+                    <div class="sub-menu-title" @click="secondaryMenuState.toggleMenu">查看更多<el-icon>
                             <ElIconArrowDown />
                         </el-icon></div>
-                    <div class="sub-menu-item-box" v-if="isOpen">
-                        <nuxt-link class="sub-menu-item" to="/travel" @click="setActiveItem('travel')"
-                            :class="activeClass('travel')">旅遊資訊</nuxt-link>
-                        <nuxt-link class="sub-menu-item" to="/sponsor-list" @click="setActiveItem('sponsorList')"
-                            :class="activeClass('sponsorList')">贊助廠商</nuxt-link>
-                        <nuxt-link class="sub-menu-item" to="/mascot" @click="setActiveItem('mascot')"
-                            :class="activeClass('mascot')">吉祥物專區</nuxt-link>
+                    <div class="sub-menu-item-box" v-if="secondaryMenuState.isOpen">
+                        <nuxt-link v-for="menu in secondaryMenuItems" :key="menu.activeKey" class="sub-menu-item"
+                            :to="menu.route" @click="pcModeActiveItemState.setActiveItem(menu.activeKey)"
+                            :class="pcModeActiveItemState.validActive(menu.activeKey)">{{ menu.name }}</nuxt-link>
 
-                        <div class="gallery-box sub-menu-item" @click="toggleGallerySubMenu"
-                            :class="activeClass('gallery')">
+                        <div class="gallery-box sub-menu-item" @click="galleryMenuState.toggleMenu">
                             Gallery
                             <el-icon>
                                 <ElIconArrowDown />
                             </el-icon>
-                            <div class="gallery-sub-menu" v-if="gallerySubMenuIsOpen">
-                                <nuxt-link class="sub-menu-item" to="/gallery/2023" @click="setActiveItem('gallery')"
-                                    :class="activeClass('gallery')">Gallery 2023</nuxt-link>
-                                <nuxt-link class="sub-menu-item" to="/gallery/2024"
-                                    @click="setActiveItem('gallery2024')" :class="activeClass('gallery2024')">Gallery
-                                    2024</nuxt-link>
-                                <nuxt-link class="sub-menu-item" to="/gallery/2025"
-                                    @click="setActiveItem('gallery2025')" :class="activeClass('gallery2025')">Gallery
-                                    2025</nuxt-link>
+                            <div class="gallery-sub-menu" v-if="galleryMenuState.isOpen">
+                                <nuxt-link v-for="subMenu in galleryMenuItem.subMenu" :key="subMenu.activeKey"
+                                    class="sub-menu-item" :to="subMenu.route"
+                                    @click="pcModeActiveItemState.setActiveItem(subMenu.activeKey)"
+                                    :class="pcModeActiveItemState.validActive(subMenu.activeKey)">{{ subMenu.name
+                                    }}</nuxt-link>
                             </div>
-                            <!-- <nuxt-link class="menu-item" to="/gallery" @click="setActiveItem('gallery')"
-                            :class="activeClass('gallery')">Gallery</nuxt-link> -->
                         </div>
                     </div>
                 </div>
 
+                <!-- 會員選單區塊 -->
+                <!-- <div class="menu-item gallery-box">
+                    <div v-if="isLogin" class="sub-menu-title" @click="memberMenuState.toggleMenu">會員<el-icon>
+                            <ElIconArrowDown />
+                        </el-icon></div>
+
+                    <div class="sub-menu-item-box gallery-sub-menu" v-if="memberMenuState.isOpen">
+                        <nuxt-link class="sub-menu-item" to="/member-center">會員中心</nuxt-link>
+                        <nuxt-link class="sub-menu-item" @click="handleLogout">登出</nuxt-link>
+                    </div>
+                    <nuxt-link v-if="!isLogin" to="/login">登入</nuxt-link>
+                </div> -->
             </div>
-
-
         </div>
     </section>
 </template>
 
 <script lang="ts" setup>
 
+const isLogin = useState('isLogin', () => false)
+
 // 偵測滾輪位置，更換 menu 背景色
 const isScroll = ref(false)
 function handleScroll() {
-    let scrollPositionY = window.scrollY
-    if (scrollPositionY > 0) {
-        isScroll.value = true
-    } else {
-        isScroll.value = false
+    isScroll.value = window.scrollY > 0
+}
+
+// 菜單基礎項目
+const primaryMenuItems = [
+    { name: '關於我們', route: '/about-us', activeKey: 'aboutUs' },
+    { name: '會議資訊', route: '/conference-information', activeKey: 'conferenceInformation' },
+    { name: '註冊資訊', route: '/seminar-registration', activeKey: 'seminarRegistration' },
+    { name: '交通資訊', route: '/transportation', activeKey: 'transportation' },
+]
+
+// 次級菜單項目 (在螢幕寬度不足以顯示所有 primary menu 項目時會顯示在 sub-menu 中)
+const secondaryMenuItems = [
+    { name: '旅遊資訊', route: '/travel', activeKey: 'travel' },
+    { name: '贊助廠商', route: '/sponsor-list', activeKey: 'sponsorList' },
+    { name: '吉祥物專區', route: '/mascot', activeKey: 'mascot' },
+]
+
+// Gallery 菜單項目
+const galleryMenuItem = {
+    name: 'Gallery', route: '', activeKey: 'gallery', subMenu: [
+        { name: 'Gallery 2023', route: '/gallery/2023', activeKey: 'gallery2023' },
+        { name: 'Gallery 2024', route: '/gallery/2024', activeKey: 'gallery2024' },
+        { name: 'Gallery 2025', route: '/gallery/2025', activeKey: 'gallery2025' },
+    ]
+}
+
+// 次級菜單狀態
+const secondaryMenuState = ref({
+    isOpen: false,
+    toggleMenu: () => {
+        secondaryMenuState.value.isOpen = !secondaryMenuState.value.isOpen
     }
+})
+
+// Gallery 菜單狀態
+const galleryMenuState = ref({
+    isOpen: false,
+    toggleMenu: () => {
+        galleryMenuState.value.isOpen = !galleryMenuState.value.isOpen
+    }
+})
+
+const memberMenuState = ref({
+    isOpen: false,
+    toggleMenu: () => {
+        memberMenuState.value.isOpen = !memberMenuState.value.isOpen
+    }
+})
+
+// PC 模式下 active menu 狀態
+const pcModeActiveItemState = ref({
+    activedItem: '',
+    setActiveItem: (item: string) => {
+        pcModeActiveItemState.value.activedItem = item
+        secondaryMenuState.value.isOpen = false
+        galleryMenuState.value.isOpen = false
+    },
+    validActive: (item: string) => {
+        return pcModeActiveItemState.value.activedItem === item ? 'active' : ''
+    }
+})
+
+const handleLogout = () => {
+    const tokenCookie = useCookie('Authorization-member');
+    tokenCookie.value = null;
+    isLogin.value = false;
+    memberMenuState.value.isOpen = false;
+    useRouter().push('/')
 }
 
-const isOpen = ref(false)
-const toggleMenu = () => {
-    isOpen.value = !isOpen.value
-}
-
-const gallerySubMenuIsOpen = ref(false)
-const toggleGallerySubMenu = () => {
-    gallerySubMenuIsOpen.value = !gallerySubMenuIsOpen.value
-}
-
-const activeItem = ref('')
-const setActiveItem = (item: string) => {
-    activeItem.value = item
-    isOpen.value = false
-    console.log('activeItem', activeItem.value)
-}
-
-const activeClass = (item: string) => {
-
-    return activeItem.value === item ? 'active' : ''
-}
 
 /**================================================================ */
 
@@ -156,12 +188,6 @@ const openMenu = () => {
     isActive.value = !isActive.value;
     emits('openMenu', isActive.value);
 }
-
-const closeMenu = () => {
-    isActive.value = false;
-    emits('openMenu', isActive.value);
-}
-
 const emits = defineEmits(['openMenu']);
 
 
@@ -191,7 +217,6 @@ onMounted(() => {
         width: 100%;
         height: 6.5rem;
         padding: 0.5rem 0;
-        // FIXME
         border-bottom: 8px solid #915aa1;
 
 

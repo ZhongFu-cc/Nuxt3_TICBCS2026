@@ -68,15 +68,22 @@ const handleBannerHeight = () => {
   }
 }
 
+const handleVaildateLogin = () => {
+  const token = useCookie('Authorization-member');
+  const isLogin = useState('isLogin', () => false);
+
+  if (token.value) {
+    isLogin.value = true;
+  }
+}
+
 
 onMounted(() => {
-  setLocale('zh-TW')
-  // handleBannerHeight()
-  // // 監聽滾動事件
-  // window.addEventListener('scroll', handleScroll)
-  // // 監聽視窗大小變化事件
-  // // window.addEventListener('DOMContentLoaded', handleBannerHeight)
-  // window.addEventListener('resize', handleBannerHeight)
+  setLocale('zh')
+})
+
+onBeforeMount(() => {
+  handleVaildateLogin()
 })
 
 

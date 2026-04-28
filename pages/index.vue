@@ -8,7 +8,7 @@
                     <img src="@/assets/img/bubble_tea_hello.png" alt="">
                 </div>
                 <div class="content-message-box">
-                    <p><B>Research and Real-World Issue of Breast Cancer</B></p>
+                    <p><b>Research and Real-World Issue of Breast Cancer</b></p>
                     <p>立足台中、接軌國際、培育英才、任重道遠</p>
                     <p>在乳癌診治持續邁向個人化與整合照護的今日，我們誠摯地邀清您蒞臨本次年會，與國內外專家共探乳癌診療的新趨勢</p>
                     <p>本年會將涵蓋從基因檢測、輔助治療、到臨床決策支援與病人全人照護的最新實證，盼您共襄盛舉，攜手推動更完善的乳癌照護路徑。</p>
@@ -72,12 +72,6 @@ const next = () => {
     carousel.value.next();
 };
 
-
-
-
-onMounted(() => {
-    console.log(carousel.value);
-});
 
 </script>
 <style lang="scss" scoped>
