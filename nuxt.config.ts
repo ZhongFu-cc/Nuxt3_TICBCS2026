@@ -62,6 +62,11 @@ export default defineNuxtConfig({
   //vite配置
   vite: {
 
+    esbuild: {
+      drop: ['debugger'],
+      pure: ['console.log', 'console.info', 'console.debug', 'console.warn']
+    },
+
     css: {
       preprocessorOptions: {
         scss: {
