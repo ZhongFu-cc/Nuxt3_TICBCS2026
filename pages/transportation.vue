@@ -28,7 +28,7 @@
                             <p>步驟一: 從高鐵台中站搭乘台中捷運綠線 (往北屯總站方向)</p>
                             <p>下車站點「文心櫻花站」或「文華高中站」</p>
 
-                            <p>步驟二: 步行約8分鐘抵達臺中國際會展中心。</p>
+                            <p>步驟二: 搭乘計程車約10分鐘抵達臺中國際會展中心。</p>
                         </div>
                     </li>
 
@@ -36,8 +36,7 @@
                         <div class="transportation-content">
                             <p>搭乘地點: 高鐵台中站 1F 7出口</p>
                             <p>下車地點：臺中國際會展中心</p>
-                            <p>車程時間: 約10 ~ 15分鐘</p>
-                            <p>預估車資: 約新台幣 380 ~ 450 元</p>
+                            <p>車程時間: 約20分鐘</p>
                         </div>
                     </li>
                 </ul>
@@ -55,7 +54,7 @@
                     <li>公車
                         <div class="transportation-content">
                             <p>8號：「臺中車站(臺灣大道)」➡「會展中心(會議中心)」➡ 約55分鐘抵達​</p>
-                            <p>82號：「臺中車站(臺灣大道)」➡「「綠美途(中科路) ➡ 約41分鐘 ➡ 步行約 8 ~ 10 分鐘抵達</p>
+                            <p>82號：「臺中車站(臺灣大道)」➡「綠美圖(中科路)」 ➡ 約41分鐘 ➡ 步行約 8 ~ 10 分鐘抵達</p>
                         </div>
                     </li>
 
@@ -64,7 +63,6 @@
                             <p>搭乘地點: 地下停車場 3A臨停出口​</p>
                             <p>下車地點：臺中國際會展中心</p>
                             <p>車程時間: 約 30 分鐘</p>
-                            <p>預估車資: 約新台幣 330 元</p>
                         </div>
                     </li>
                 </ul>
@@ -79,29 +77,20 @@
 
                 </div>
                 <ul class="decimal-list">
-
-                    <li>步行
-                        <div class="transportation-content">
-                            <p>於文心中清捷運站或文華高中站下車皆可，皆步行約18分鐘抵達​</p>
-                        </div>
-                    </li>
-
                     <li>計程車
                         <ul class="disc-list">
                             <li>
                                 <div class="transportation-content">
                                     <p>搭乘地點: 捷運文心櫻花站​​</p>
                                     <p>下車地點：臺中國際會展中心</p>
-                                    <p>車程時間: 約 8 分鐘</p>
-                                    <!-- <p>預估車資: 約新台幣 125 元</p> -->
+                                    <p>車程時間: 約 10 分鐘</p>
                                 </div>
                             </li>
                             <li>
                                 <div class="transportation-content">
                                     <p>搭乘地點: 捷運文華高中站​</p>
                                     <p>下車地點：臺中國際會展中心</p>
-                                    <p>車程時間: 約 8 分鐘</p>
-                                    <!-- <p>預估車資: 約新台幣 95 元</p> -->
+                                    <p>車程時間: 約 10 分鐘</p>
                                 </div>
                             </li>
                         </ul>
@@ -109,53 +98,6 @@
                 </ul>
             </div>
 
-            <!-- <div class="transpotation-item-box">
-                <div class="item-title">
-                    <div class="image-box">
-                        <img src="@/assets/img/icon/transpotation4.svg" alt="">
-                    </div>
-                    <h1><span>公車​​></span> <span>臺中國際會展中心</span></h1>
-
-                </div>
-                <ul class="disc-list">
-
-                    <li>搭乘路線
-                        <div class="transportation-content">
-                            <p>8、88、157、354、529，於會展中心（展覽館）或會展中心（會議中心）下車，即抵達臺中國際會展中心。</p>
-                        </div>​​
-                    </li>
-                    <li>搭乘路線
-                        <div class="transportation-content">
-                            <p>6、54、61、108、154、500、651、850、1826、1851、1861、1863、1866、1866B，於下港尾站下車，並步行約13分鐘抵達臺中國際會展中心。
-                            </p>
-                        </div>​​
-                    </li>
-
-                </ul>
-            </div> -->
-
-            <!-- <div class="transpotation-item-box">
-                <div class="item-title">
-                    <div class="image-box">
-                        <img src="@/assets/img/icon/transpotation5.svg" alt="">
-                    </div>
-                    <h1>臺中國際會展中心附近Youbike站點​</h1>
-                </div>
-                <ul class="disc-list">
-                    <li class="link">
-                        <div class="transportation-content">
-                            <a href="https://www.google.com.tw/search?sca_esv=482345221402daf0&sxsrf=AHTn8zp-d6uN58Cr2ApscNABBhc8SiG65A:1746682839759&kgmid=/g/11ybt91c0m&q=iBike+%E4%B8%AD%E5%9C%8B%E9%86%AB%E8%97%A5%E5%A4%A7%E5%AD%B8%E6%B0%B4%E6%B9%B3%E6%A0%A1%E5%8D%80&shndl=30&shem=lcuae,lstl3,uaasie,vidc&source=sh/x/loc/uni/m1/1"
-                                target="_blank">港隆經貿九路口(120公尺)</a>
-                        </div>
-                    </li>
-                    <li class="link">
-                        <div class="transportation-content">
-                            <a href="https://www.google.com.tw/search?sca_esv=482345221402daf0&sxsrf=AHTn8zrCAdFhdU3OQfURQ4DmMi3pTVFJwQ:1746682750157&kgmid=/g/11kjgcbpxb&q=iBike+%E4%BF%A1%E5%B9%B3%E9%A0%86%E5%B9%B3%E4%BA%8C%E8%A1%97%E5%8F%A3&shndl=30&shem=lcuae,lstl3,uaasie,vidc&source=sh/x/loc/uni/m1/1"
-                                target="_blank">經貿五僑大八街口(700公尺)</a>
-                        </div>
-                    </li>
-                </ul>
-            </div> -->
 
             <div class="transpotation-item-box">
                 <div class="item-title">

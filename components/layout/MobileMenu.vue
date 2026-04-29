@@ -3,10 +3,12 @@
         <div class="mobile-menu">
             <ol>
                 <div v-for="item in menu">
-                    <li v-if="!item.submenu" @click="handleClick(item.path)" :class="activeClass(item.path)">
+                    <li v-if="!item.submenu && item.isShow" @click="handleClick(item.path)"
+                        :class="activeClass(item.path)">
                         {{ item.title }}
                     </li>
-                    <li v-if="item.submenu" @click="setActiveItem(item)" :class="{ 'active': item.isActive }">
+                    <li v-if="item.submenu && item.isShow" @click="setActiveItem(item)"
+                        :class="{ 'active': item.isActive }">
                         {{ item.title }}
                         <el-icon class="arrow" :class="{ 'is-active': item.isActive }">
                             <ElIconArrowDown />
@@ -19,6 +21,10 @@
                         </ul>
                     </li>
                 </div>
+                <li v-if="isLogin" @click="handleLogout">登出</li>
+                <li v-else>
+                    <nuxt-link to="/login" @click="closeMenu">登入</nuxt-link>
+                </li>
             </ol>
         </div>
         <div class="gray-section" @click="closeMenu"></div>
@@ -35,21 +41,25 @@ const closeMenu = () => {
     emits('closeMenu');
 }
 
-const menu = reactive([
-    { title: '首頁', path: '/', isActive: false },
-    { title: '關於我們', path: '/about-us', isActive: false },
-    { title: '會議資訊', path: '/conference-information', isActive: false },
-    { title: '註冊資訊', path: '/seminar-registration',isActive: false },
-    { title: '交通資訊', path: '/transportation',isActive: false },
-    { title: '旅遊資訊', path: '/travel',isActive: false },
-    { title: '贊助廠商', path: '/sponsor-list',isActive: false },
-    { title: '吉祥物專區', path: '/mascot',isActive: false },
-    { title: 'Gallery', path: '/gallery', isActive: false, submenu: [
-        { title: '2023 Gallery', path: '/gallery/2023' },
-        { title: '2024 Gallery', path: '/gallery/2024' },
-        { title: '2025 Gallery', path: '/gallery/2025' },
-    ]}
+const isLogin = useState('isLogin', () => false)
 
+
+const menu = reactive([
+    { title: '首頁', path: '/', isActive: false, isShow: true },
+    { title: '關於我們', path: '/about-us', isActive: false, isShow: true },
+    { title: '會議資訊', path: '/conference-information', isActive: false, isShow: true },
+    { title: '註冊資訊', path: '/seminar-registration', isActive: false, isShow: true },
+    { title: '交通資訊', path: '/transportation', isActive: false, isShow: true },
+    { title: '旅遊資訊', path: '/travel', isActive: false, isShow: true },
+    { title: '贊助廠商', path: '/sponsor-list', isActive: false, isShow: true },
+    { title: '吉祥物專區', path: '/mascot', isActive: false, isShow: true },
+    {
+        title: 'Gallery', path: '/gallery', isActive: false, isShow: true, submenu: [
+            { title: '2023 Gallery', path: '/gallery/2023' },
+            { title: '2024 Gallery', path: '/gallery/2024' },
+            { title: '2025 Gallery', path: '/gallery/2025' },
+        ]
+    },
 ])
 
 
@@ -71,24 +81,27 @@ const handleClick = (path: string) => {
     closeMenu()
 }
 
-
-
-const headToLogin = () => {
-    closeMenu();
-    let url = isLogin.value ? '/member-center' : '/login';
-    router.push(url);
+const handleLogout = () => {
+    ElMessageBox.confirm('確定要登出嗎？', '登出確認', {
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+        type: 'warning',
+    }).then(() => {
+        const tokenCookie = useCookie('Authorization-member');
+        tokenCookie.value = null;
+        isLogin.value = false;
+        router.push('/login');
+        console.log('登出成功');
+    }).catch(() => {
+        // 取消登出
+    });
 }
 
-const isLogin = ref(false);
-const validateLogin = () => {
-    let res = localStorage.getItem('Authorization-member');
-    if (res) {
-        isLogin.value = true;
-    }
-}
+
+
+
 
 router.beforeEach(async (to, from, next) => {
-    validateLogin();
     next();
 });
 
@@ -104,7 +117,6 @@ const logout = async () => {
 
 </script>
 <style lang="scss" scoped>
-
 .mobile-menu {
     background-color: black;
     height: 100vh;
@@ -157,9 +169,11 @@ const logout = async () => {
 
         .submenu {
             padding-left: 1rem;
+
             li {
                 list-style: none;
             }
+
             // overflow: hidden;
             // max-height: 0px;
             // transition: 0.5s;
