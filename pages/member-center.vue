@@ -89,6 +89,9 @@ onMounted(() => {
     getMemberInfo();
 });
 
+definePageMeta({
+    middleware: 'auth' // 名稱對應檔名
+})
 
 </script>
 <style lang="scss" scoped>

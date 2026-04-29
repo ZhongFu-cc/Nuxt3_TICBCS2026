@@ -161,7 +161,7 @@ const galleryMenuState = ref({
     isOpen: false,
     toggleMenu: () => {
         galleryMenuState.value.isOpen = !galleryMenuState.value.isOpen
-        secondaryMenuState.value.isOpen = false;
+        // secondaryMenuState.value.isOpen = false;
         memberMenuState.value.isOpen = false;
     }
 })
@@ -261,7 +261,7 @@ onMounted(() => {
         @media screen and (max-width: 1024px) {}
 
         @media screen and (max-width: 469px) {
-            padding-left: 2rem;
+            // padding-left: 2rem;
             justify-content: flex-start;
         }
 
@@ -349,6 +349,16 @@ onMounted(() => {
                 z-index: 1000;
                 width: 7rem;
 
+                .menu-title {
+                    color: white;
+                    font-size: 1.2rem;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #FF5529;
+                    }
+                }
+
                 .sub-menu-item {
                     color: white;
                     font-size: 1.2rem;
@@ -410,6 +420,14 @@ onMounted(() => {
                 background-color: white;
                 border: 1px solid #915aa1;
 
+                .menu-title {
+                    color: black;
+
+                    &:hover {
+                        color: #FF5529;
+                    }
+                }
+
                 .sub-menu-item {
                     color: black;
 
@@ -430,6 +448,7 @@ onMounted(() => {
         @media screen and (max-width: 768px) {
             display: flex;
             justify-content: space-around;
+            text-align: center;
         }
 
 
@@ -439,6 +458,7 @@ onMounted(() => {
         width: 30%;
         display: flex;
         justify-content: flex-end;
+        margin-top: 5px;
 
         img {
             width: 1.5rem;
@@ -455,7 +475,9 @@ onMounted(() => {
     }
 
     .hamburger-icon {
-        display: block;
+        display: flex;
+        justify-content: flex-start;
+
 
         .hamburger .line {
             width: 1.5rem;
