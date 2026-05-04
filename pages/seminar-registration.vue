@@ -7,19 +7,19 @@
                     <div class="credit-point-box">
                         <ul>
                             <Title title="研討會申請之會議學分(申請中)"></Title>
-                            <li>(1)台灣乳房醫學會 <span class="score">14分</span></li>
-                            <li>(2)台灣外科醫學會 <span class="score">3分</span></li>
-                            <li>(3)社團法人臨床藥學會 藥師<span class="score">13.4分</span></li>
+                            <li>(1)台灣乳房醫學會 <span class="score"></span></li>
+                            <li>(2)台灣外科醫學會 <span class="score"></span></li>
+                            <li>(3)社團法人臨床藥學會 藥師<span class="score"></span></li>
                             <li>(4)台灣專科護理師學會
                                 <ul>
-                                    <li>(1)專科護理師 <span class="score">13.4分</span></li>
-                                    <li>(2)護理師 <span class="score">13.4分</span></li>
+                                    <li>(1)專科護理師 <span class="score"></span></li>
+                                    <li>(2)護理師 <span class="score"></span></li>
                                 </ul>
                             </li>
                             <li>(5)中華民國癌症醫學會
                                 <ul>
-                                    <li>(1)腫瘤內科 <span class="score">3分</span></li>
-                                    <li>(2)腫瘤外科 <span class="score">3分</span></li>
+                                    <li>(1)腫瘤內科 <span class="score"></span></li>
+                                    <li>(2)腫瘤外科 <span class="score"></span></li>
                                 </ul>
                             </li>
                         </ul>
