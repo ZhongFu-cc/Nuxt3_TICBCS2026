@@ -69,7 +69,7 @@ const handleBannerHeight = () => {
 }
 
 const handleVaildateLogin = () => {
-  const token = useCookie('Authorization-member');
+  const token = ref<string | null>(localStorage.getItem('Authorization-member') || null);
   const isLogin = useState('isLogin', () => false);
 
   if (token.value) {
@@ -79,7 +79,7 @@ const handleVaildateLogin = () => {
 
 
 onMounted(() => {
-  setLocale('zh')
+  // setLocale('zh')
 })
 
 onBeforeMount(() => {

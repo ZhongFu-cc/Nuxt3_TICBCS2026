@@ -1,14 +1,20 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const isLogin = useState('isLogin', () => false)
     const memberInfo = useState('memberInfo', () => null) as Ref<any>
+    const localePath = useLocalePath()
 
-    const token = useCookie('Authorization-member').value
+
+    if (process.server) {
+        return;
+    }
+    const token = localStorage.getItem('Authorization-member') as string | null
+
     if (!token) {
         isLogin.value = false
         memberInfo.value = null
 
-        if (to.path !== '/login') {
-            return navigateTo('/login')
+        if (to.path !== localePath('/login')) {
+            return navigateTo(localePath('/login'))
         }
         return
     }
@@ -21,21 +27,35 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 isLogin.value = true
                 memberInfo.value = res.data
             } else {
-                useCookie('Authorization-member').value = null
+                localStorage.removeItem('Authorization-member')
                 isLogin.value = false
                 memberInfo.value = null
-                return navigateTo('/login')
+                return navigateTo(localePath('/login'))
             }
-        } catch (error) {
-            const tokenCookie = useCookie('Authorization-member')
-            tokenCookie.value = null
-            isLogin.value = false
-            memberInfo.value = null
-            return navigateTo('/login')
+        } catch (error: any) {
+            // 1. 在伺服器端終端機列印錯誤，方便開發時除錯
+            if (import.meta.server) {
+            }
+
+            // 2. 只有在確定是「登入失效」的情況下才清空
+            // 檢查 status 是否為 401，或是後端自定義的失效代碼
+            const isAuthError = error.response?.status === 401;
+
+            if (isAuthError) {
+                localStorage.removeItem('Authorization-member');
+                isLogin.value = false;
+                memberInfo.value = null;
+
+                // 導向登入頁
+                const loginPath = localePath('/login');
+                if (to.path !== loginPath) {
+                    return navigateTo(loginPath);
+                }
+            }
         }
     }
 
-    if (isLogin.value && to.path === '/login') {
-        return navigateTo('/')
+    if (isLogin.value && to.path === localePath('/login')) {
+        return navigateTo(localePath('/'))
     }
 })

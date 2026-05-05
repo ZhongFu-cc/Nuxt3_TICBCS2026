@@ -247,7 +247,7 @@ const submit = async (formEl: FormInstance | undefined) => {
             }
 
             if (res.data.isLogin) {
-                localStorage.setItem(res.data.tokenName, 'Bearer ' + res.data.tokenValue);
+                localStorage.setItem(res.data.tokenName, res.data.tokenValue);
                 router.push('/member-center')
             }
 

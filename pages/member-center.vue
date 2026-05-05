@@ -33,7 +33,7 @@
 
             <div class="select-section">
                 <div class="select-item-box">
-                    <nuxt-link class="select-box" :to="'/profile'">
+                    <nuxt-link class="select-box" :to="localePath('/profile')">
                         <img src="@/assets/img/user-edit.svg" alt="">
                         <div class="label-box">
                             <p>{{ $t('profile') }}</p>
@@ -52,9 +52,15 @@ import Accommodation from './accommodation.vue';
 
 const { t, setLocale } = useI18n();
 
+definePageMeta({
+    middleware: 'auth' // 名稱對應檔名
+})
+
+const localePath = useLocalePath();
+
 const router = useRouter();
 
-const memberInfo = reactive<Record<string, any>>({});
+const memberInfo = useState('memberInfo', () => null) as any
 
 const inCompletedStatus = [0, 1, 3];
 const isComplete = computed(() => {
@@ -72,22 +78,6 @@ const getStatusLabel = (status: number) => {
     }
 }
 
-const getMemberInfo = async () => {
-    let res = await CSRrequest.get('/member/owner')
-    if (res.code !== 200) {
-        router.push('/login');
-        localStorage.removeItem('Authorization-member');
-        return;
-    }
-    Object.assign(memberInfo, res.data);
-    memberInfo.country === 'Taiwan' ? setLocale('zh') : setLocale('en');
-    console.log(memberInfo.status)
-}
-
-
-onMounted(() => {
-    getMemberInfo();
-});
 
 definePageMeta({
     middleware: 'auth' // 名稱對應檔名

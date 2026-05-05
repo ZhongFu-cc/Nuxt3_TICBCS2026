@@ -32,14 +32,22 @@
                 <el-divider></el-divider>
                 <Title title="研討會報名"></Title>
                 <el-form :model="formData" class="form" ref="form" :rules="formRules" labelPosition="top"
-                    require-asterisk-position="right" :show-message="true" :scroll-to-error="true">
+                    require-asterisk-position="right" :show-message="true" :scroll-to-error="true"
+                    :validate-on-rule-change="false">
                     <div class="reminder">
-                        <p>* 現場報名須繳$300工本費</p>
-                        <p>* 本次註冊後，網站會留存您的註冊資訊，供後續其他年度會議使用。</p>
+                        <p>* {{ t('registrationInfo1') }}</p>
+                        <p>* {{ t('registrationInfo2') }}</p>
                     </div>
                     <el-card class="form-card">
                         <div class="main-form">
                             <div class="left-seciton">
+                                <el-form-item :label="$t('country')" :prop="country">
+                                    <el-select v-model="formData.country" placeholder="Select Country" filterable>
+                                        <el-option v-for="item in country" :key="item" :label="item" :value="item">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+
                                 <el-form-item :label="$t('chineseName')" :prop="'chineseName'">
                                     <el-input v-model="formData.chineseName"
                                         :placeholder="$t('chineseName')"></el-input>
@@ -105,7 +113,8 @@
                                             <span>-</span>
                                         </div>
                                     </el-form-item>
-                                    <el-form-item :class="'domestic-phone-num'" :label="$t('phoneNum')" prop="phoneNum">
+                                    <el-form-item :class="lang === 'zh' ? 'domestic-phone-num' : 'oversea-phone-num'"
+                                        :label="$t('phoneNum')" prop="phoneNum">
                                         <el-input v-model="formData.phoneNum" :placeholder="$t('phoneNum')"></el-input>
                                     </el-form-item>
                                 </div>
@@ -150,7 +159,11 @@ import { Lock, Message } from '@element-plus/icons-vue'
 import Banner from '@/components/layout/Banner.vue';
 import Title from '@/components/layout/Title.vue';
 
+import countries from '@/assets/data/countries.json'
+
 const { t } = useI18n();
+
+const country = ref(countries);
 
 useSeoMeta({
     title: '註冊資訊',
@@ -158,7 +171,7 @@ useSeoMeta({
     keywords: 'seminar registration, TICBCS, ticbcs, TICBCS2026, ticbcs2026, 註冊資訊, 台中國際乳癌研討會 , 乳癌研討會, 乳癌, 乳癌教育, 乳癌防治, 中華民國乳癌教育暨防治學會, 中國醫藥大學附設醫院, 中國醫藥大學, 台灣乳房醫學會, 中華民國外科醫學會, 學分資訊, 報名資訊',
 });
 
-
+const lang = ref('')
 
 
 const router = useRouter()
@@ -195,6 +208,10 @@ const codeMap: Record<string, number> = {
 };
 
 const checkCkDigit = (rule: any, value: string, callback: any) => {
+    if (formData.country !== 'Taiwan') {
+        callback();
+        return;
+    }
     if (!value) callback(new Error('請輸入身分證字號'))
     if (value) {
         console.log('checkCkDigit', value)
@@ -331,23 +348,23 @@ const checkEmail = (rule: any, value: string, callback: any) => {
 }
 
 
-const formRules = reactive<FormRules>({
+const formRules = computed<FormRules>(() => ({
     title: [{ required: true, message: t('titleValidate'), trigger: 'change' }],
     firstName: [{ required: true, message: t('firstNameValidate'), trigger: 'blur' }],
     lastName: [{ required: true, message: t('lastNameValidate'), trigger: 'blur' }],
     email: [{ required: true, message: t('emailValidate'), trigger: 'blur' }, { type: 'email', message: t('emailValidateFormat'), trigger: 'blur' }],
     confirmEmail: [{ validator: checkEmail, trigger: 'blur' }],
     password: [{ required: true, message: t('passwordValidate'), trigger: 'blur' }],
-    chineseName: [{ required: true, message: t('chineseNameValidate'), trigger: 'blur' }],
+    chineseName: [{ required: formData.country === 'Taiwan', message: t('chineseNameValidate'), trigger: 'blur' }],
     confirmPassword: [{ validator: vaildConfirmPassword, trigger: 'blur' }],
     affiliation: [{ required: true, message: t('affiliationValidate'), trigger: 'blur' }],
     jobTitle: [{ required: true, message: t('jobTitleValidate'), trigger: 'blur' }],
-    idCard: [{ required: true, validator: checkCkDigit, trigger: 'blur' }],
+    idCard: [{ required: formData.country === 'Taiwan', validator: checkCkDigit, trigger: 'blur' }],
     country: [{ required: true, message: t('countryValidate'), trigger: 'change' }],
     countryCode: [{ required: true, message: t('countryCodeValidate'), trigger: 'blur' }],
     phoneNum: [{ required: true, message: t('phoneNumValidate'), trigger: 'blur' }],
     category: [{ required: true, message: t('categoryValidate'), trigger: 'change' }],
-})
+}))
 
 
 
@@ -370,7 +387,7 @@ const submit = async (formEl: FormInstance | undefined) => {
             }
 
             if (res.data.isLogin) {
-                localStorage.setItem(res.data.tokenName, 'Bearer ' + res.data.tokenValue);
+                localStorage.setItem(res.data.tokenName, res.data.tokenValue);
                 ElNotification.success({
                     title: 'Success',
                     message: '註冊成功',
@@ -404,6 +421,11 @@ onMounted(() => {
         }
     })
     getCaptcha()
+
+    nextTick(() => {
+        lang.value = localStorage.getItem('lang') || 'zh'
+        console.log('lang', lang.value)
+    })
 })
 </script>
 <style lang="scss" scoped>
@@ -438,6 +460,10 @@ onMounted(() => {
         width: 60%;
         margin: 1rem auto;
         font-weight: 600;
+
+        @media screen and (max-width: 768px) {
+            width: 90%;
+        }
 
         :deep(.el-form-item__label) {
             font-size: 1.3rem;

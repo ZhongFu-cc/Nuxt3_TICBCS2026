@@ -1,7 +1,7 @@
 {
   "home": "Home",
   "aboutUs": "About Us",
-  "conferenceInformation": "TOPBS 2026",
+  "conferenceInformation": "TICBCS 2026",
   "registration": "Registration",
   "registrationFee": "Registration Fee",
   "onlineRegistration": "Online Registration",
@@ -38,7 +38,7 @@
   "chineseName": "Chinese Name",
   "email": "Email",
   "email2": "Confirm Email",
-  "password": "Password",
+  "password": "Password(Login Password)",
   "confirmPassword": "Confirm Password",
   "affiliation": "Affiliation",
   "jobTitle": "Job Title",
@@ -134,5 +134,15 @@
   "editProfile": "Edit",
   "accountOverview": "Account Overview",
   "registrationStatus": "Registration Status",
-  "loadingMemberData": "Loding..."
+  "loadingMemberData": "Loding...",
+  "seminarRegistration": "Registration",
+  "travel": "Travel",
+  "mascot": "Mascot",
+  "viewMore": "View more",
+  "registrationInfo1": "On-site registration: $300",
+  "registrationInfo2": "Your registration information will be retained for use in future annual conferences.",
+  "logoutConfirmation": "Are you sure you want to log out?",
+  "logoutTitle": "Confirm Logout",
+  "confirm": "Confirm",
+  "cancel": "Cancel"
 }

@@ -1,39 +1,38 @@
 <template>
     <main class="common-section">
         <Banner />
-        <!-- <Breadcrumbs first-route="Member" secound-route="login" /> -->
         <Title title="Member Login" />
         <div class="main-section">
             <el-form class="login-form" ref="formRef" :model="loginInfo" :rules="formRule"
                 :label-position="formatLabelPosition">
-                <!-- <div class="nationality-select">
+                <div class="nationality-select">
                     <el-button :class="{ active: attendeeType === 0 }" @click="attendeeType = 0">
                         國內與會者 Domestic Attendee
                     </el-button>
                     <el-button :class="{ active: attendeeType === 1 }" @click="attendeeType = 1">Oversea
                         Attendee</el-button>
-                </div> -->
+                </div>
 
                 <el-form-item v-if="attendeeType === 1" class="login-input" prop="account">
                     <el-input v-model="loginInfo.account" placeholder="Email">
-                        <!-- <template #prefix>
+                        <template #prefix>
                             <img src="@/assets/img/email.svg" alt="">
-                        </template> -->
+                        </template>
                     </el-input>
                 </el-form-item>
 
                 <el-form-item v-if="attendeeType === 0" class="login-input" prop="account">
                     <el-input v-model="loginInfo.account" placeholder="身分證字號">
-                        <!-- <template #prefix>
+                        <template #prefix>
                             <img src="@/assets/img/passport.svg" alt="">
-                        </template> -->
+                        </template>
                     </el-input>
                 </el-form-item>
                 <el-form-item class="login-input" prop="password">
                     <el-input v-model="loginInfo.password" type="password" placeholder="Password" :show-password="true">
-                        <!-- <template #prefix>
+                        <template #prefix>
                             <img src="@/assets/img/lock.svg" alt="">
-                        </template> -->
+                        </template>
                     </el-input>
                     <div class="forgot-password">
                         <nuxt-link to="/retrieve-password">Forgot password?</nuxt-link>
@@ -70,15 +69,16 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs.vue';
 import Title from '@/components/layout/Title.vue';
 
 useSeoMeta({
-    title: 'Member Login - TOPBS 2026 Taiwan Oncoplastic Breast Surgery Society',
-    description: 'Member login page for the TOPBS 2026 Taiwan Oncoplastic Breast Surgery Society. Sign in to access your account, retrieve your password, or register for the conference.',
-    keywords: 'Login,Sign In,TOPBS,TOPBS 2026,2026 TOPBS'
+    title: '會員登入 | TICBCS 2026',
+    description: 'TICBCS 2026 會員登入頁面',
+    keywords: 'Login,Sign In,TICBCS,TICBCS 2026,2026 TICBCS'
 })
 
 definePageMeta({
     middleware: 'auth' // 名稱對應檔名
 })
 
+const localePath = useLocalePath();
 
 const router = useRouter();
 
@@ -86,7 +86,7 @@ const captcha = reactive<any>({
 
 });
 
-const attendeeType = ref(1);
+const attendeeType = ref(0);
 
 const getCaptcha = async () => {
     let res = await CSRrequest.get('/member/captcha');
@@ -125,23 +125,13 @@ const setFormLabelPosotion = () => {
         formatLabelPosition.value = 'left'; // 否則設置為 'left'
     }
 }
-
-
 const login = async (formEl: FormInstance | undefined) => {
     if (!formEl) return;
     formEl.validate(async (valid) => {
-        console.log(loginInfo)
-
-        const paload = {
-            email: loginInfo.account,
-            password: loginInfo.password,
-            verificationKey: loginInfo.verificationKey,
-            verificationCode: loginInfo.verificationCode
-        }
         if (valid) {
-            const url = '/member/login';
+            const url = attendeeType.value === 1 ? '/member/login-foreign' : '/member/login-local';
             let res = await CSRrequest.post(url, {
-                body: paload
+                body: loginInfo
             })
             if (res.code === 500) {
                 ElNotification.error({
@@ -151,17 +141,14 @@ const login = async (formEl: FormInstance | undefined) => {
                     duration: 3000,
                 });
                 getCaptcha();
+                return;
             }
             if (res.data.isLogin) {
-                router.push('/member-center')
+                await nextTick();
                 localStorage.setItem(res.data.tokenName, 'Bearer ' + res.data.tokenValue);
-                const tokenCookie = useCookie('Authorization-member', {
-                    maxAge: 60 * 60 * 24,
-                    path: '/',
-                });
-                tokenCookie.value = 'Bearer ' + res.data.tokenValue;
                 formEl.resetFields();
                 useAuth().checkLoginState();
+                router.push(localePath('/member-center'))
             }
         } else {
             ElNotification.error({
@@ -175,7 +162,6 @@ const login = async (formEl: FormInstance | undefined) => {
 
 }
 
-
 const listenKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
         login(formRef.value);
@@ -183,10 +169,15 @@ const listenKeydown = (event: KeyboardEvent) => {
 }
 
 onMounted(() => {
+    // getMemberInfo();
     getCaptcha();
     setFormLabelPosotion();
     window.addEventListener('keydown', listenKeydown);
     window.addEventListener('resize', setFormLabelPosotion);
+
+    nextTick(() => {
+        attendeeType.value = localStorage.getItem('lang') === 'en' ? 1 : 0;
+    })
 });
 
 onUnmounted(() => {
@@ -201,7 +192,7 @@ onUnmounted(() => {
     font-family: $common-section-font-family;
 
     .main-section {
-        // background: url('assets/img/topbs_background-image.jpg') no-repeat center center;
+        background: url('assets/img/topbs_background-image.jpg') no-repeat center center;
         display: flex;
         justify-content: center;
         align-items: center;

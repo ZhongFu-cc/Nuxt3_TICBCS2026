@@ -333,7 +333,6 @@ const getMemberInfo = async () => {
     }
 
     Object.assign(memberInfo, res.data);
-    setLocale(memberInfo.country === 'Taiwan' ? 'zh' : 'en');
     fillForm(res.data);
     isLoading.value = false;
 };

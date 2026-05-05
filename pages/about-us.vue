@@ -5,7 +5,7 @@
             <h1 class="title">Welcome Message</h1>
             <div class="welcome-box">
                 <div class="image-box">
-                    <img src="@/assets/img/president3.jpg" alt="">
+                    <img src="@/assets/img/president4.jpg" alt="">
                 </div>
                 <div class="welcome-content">
                     <p>各位嘉賓、學界專家及同仁&nbsp;:</p>
