@@ -2,6 +2,7 @@ on:
   push:
     branches: 
       - '**'
+  workflow_dispatch: #
 
 # 工作流程
 jobs:
